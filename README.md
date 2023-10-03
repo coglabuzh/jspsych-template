@@ -1,4 +1,4 @@
-# remember-forget-circle
+# Default experiment
 
 This experiment relies on Node.js (https://nodejs.org/en/) and jsPsych-builder package (https://github.com/bjoluc/jspsych-builder). Please install the dependent package before running the experiment.
 
