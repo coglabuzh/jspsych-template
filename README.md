@@ -17,6 +17,4 @@ This is the main entry point for the experiment. It is responsible for creating 
 ## Code contribution:
 
 Authors:
-Chenyu Li
-Ajit Mistry
-Hannah Dames (Hannah Tschannen)
+Chenyu Li, Ajit Mistry, Hannah Dames (Hannah Tschannen)
