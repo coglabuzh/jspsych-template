@@ -2,9 +2,7 @@
  * This file contains the settings for the experiment.
  */
 
-// Basic Functions
-import { convertCase } from "./basic-fun/convertCase";
-import { generateArray } from "./basic-fun/sequence";
+
 
 // Task functions
 import { setCSS } from "./task-fun/setCSS";
@@ -14,21 +12,15 @@ setCSS();
 
 export const expInfo = {
   // settings for the experiment
-  TITLE: "serial_position",
+  TITLE: "the_name_of_your_experiment",
   nTRIALS: 1, // number of experiment trials for each condition
   nBLOCKS: 1, // number of blocks
-  nBOXES: 8, // number of boxes
   CONDITIONS: [5, 6, 7, 8],
 
   // settings for each trial
   TIMING: {
-    STIMULUS: 1000, // presentation time of each stimulus in milliseconds
-    ISI: 500, // inter-stimulus interval in milliseconds
     START: 10 * 1000, // time for the countdown before a new trial starts
-    ITI: 1000, // inter-trial interval
     BREAK: 30, // break duration in seconds
-    RETRIEVAL: 20 * 1000, // time for retrieval
-    DEBRIEF: 2000, // time for feedback
   },
 
   // when using Prolific, you can set customized completion codes for different situations
@@ -48,20 +40,12 @@ export const expInfo = {
    */
   KEYS: {
     CONTINUE: ["enter"],
-    ALLOW_KEYS: convertCase(generateArray.alphabet(false)), // Both lower case letters and upper case letters are allowed.
     START_TRIAL: [" "],
   },
 
   // If you want to use the keyCode rather than key name,
   // you can go to the following link to get the key code:
   // https://www.toptal.com/developers/keycode/
-
-  // The size of the elements in canvas
-  SIZE: {
-    WIDTH_ADJUSTMENT: 0.9, // Set the width of the canvas as 90% of the window's width.
-    STIM_RADIUS: 0.33, // The radius of the box circle.
-    BOX_WIDTH: 0.175, // The width of the box.
-},
 
   // Running environment variables
   RUN_JATOS: false, // a switch to run the experiment on JATOS

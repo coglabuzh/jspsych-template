@@ -1,6 +1,11 @@
 // Purpose: Functions for generating stimuli and creating elements
 
+// Global variables
 import { expInfo } from "../settings";
+
+// Third party plugins
+import psychophysics from "@kurokida/jspsych-psychophysics";
+
 
 /**
  * A function used to create a single trial.

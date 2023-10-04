@@ -36,14 +36,12 @@ export const jsPsych = initJsPsych({
   on_finish: function (data) {
     varSystem.TRACK = false;
 
-    // console.log(JSON.stringify(jsPsych.data.get().json()));
-
     // Submit results to JATOS
     var resultJson = jsPsych.data.get().json();
 
     if (expInfo.RUN_JATOS) {
       //@ts-ignore
-      jatos.submitResultData(resultJson); // submit results to JATOS
+      // jatos.submitResultData(resultJson); // submit results to JATOS
       //prolific integration
       if (!varSystem.FAILED_ATTENTION_CHECK) {
         // if participants did not fail the attention check redirect them to prolific with a success token
@@ -78,7 +76,7 @@ export const jsPsych = initJsPsych({
         .getLastTrialData()
         .values()[0].participant;
       var file_name = expInfo.TITLE + "_" + participant_id + ".json";
-      jsPsych.data.get().localSave("json", file_name);
+      // jsPsych.data.get().localSave("json", file_name);
 
       document.body.innerHTML = `<div class="main">
       <h1 class="title">Good job!</h1>
