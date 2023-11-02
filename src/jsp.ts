@@ -1,9 +1,6 @@
 // jsPsych official plugin
 import { initJsPsych } from "jspsych";
 
-// Third party plugins
-import { v4 as uuidv4 } from "uuid";
-
 // Basic Functions
 import { trackInteractions } from "./basic-fun/attentionCheck";
 
@@ -16,11 +13,6 @@ export const jsPsych = initJsPsych({
   // check whether participants leave the window or not during the experiment
   on_interaction_data_update: function () {
     trackInteractions(varSystem, true); // For some weird reason, this function does not work if you write out the name of each variable.
-  },
-
-  // Assign a participant ID to the participant at the beginning of the experiment
-  on_start: function () {
-    jsPsych.data.addProperties({ participant_id: uuidv4() }); // add a unique participant id to the data
   },
 
   // append results to JATOS after each trial if the experiment is running on JATOS.

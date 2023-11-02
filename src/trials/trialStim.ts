@@ -1,7 +1,6 @@
 // Purpose: Generates a stimulus array based on the specified condition.
 
-import { random } from "../basic-fun/random";
-import { generateArray } from "../basic-fun/sequence";
+import { random } from "@coglabuzh/webpsy.js"
 
 /**
  * Generates a stimulus array based on the specified condition.

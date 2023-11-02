@@ -13,10 +13,14 @@ setCSS();
 export const expInfo = {
   // settings for the experiment
   TITLE: "the_name_of_your_experiment",
-  nTRIALS: 1, // number of experiment trials for each condition
-  nBLOCKS: 1, // number of blocks
-  CONDITIONS: [5, 6, 7, 8],
 
+  // design of the experiment
+  DESIGN:{
+    nTRIALS: 1, // number of experiment trials for each condition
+    nBLOCKS: 1, // number of blocks
+    CONDITIONS: [5, 6, 7, 8],
+  },
+  
   // settings for each trial
   TIMING: {
     START: 10 * 1000, // time for the countdown before a new trial starts
@@ -57,6 +61,5 @@ export const varSystem = {
   nBLUR: 0, // use to count how many times participants left the browser
   MAX_BLUR: 3, // the maximum number of times participants can leave the browser
   LOOP: true, // a switch to control whether participants need to read the instruction and practice again
-  RUN_TIMER: false, // a switch to control the countdown timer
   FAILED_ATTENTION_CHECK: false,
 };
