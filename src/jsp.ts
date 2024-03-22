@@ -3,10 +3,7 @@ import { initJsPsych } from "jspsych";
 
 // Basic Functions
 import { trackInteractions } from "@coglabuzh/webpsy.js";
-<<<<<<< HEAD
-=======
 
->>>>>>> a73f0110b0f7f236041f2736a679d81781da501c
 // Global variables
 import { varSystem, expInfo } from "./settings";
 let { COLOR, RUN_JATOS } = expInfo;
@@ -29,7 +26,7 @@ if (RUN_JATOS) {
 
 
 // Initialize JsPsych
-export let jsPsych = initJsPsych({
+export const jsPsych = initJsPsych({
   // check whether participants leave the window or not during the experiment
   on_interaction_data_update: function () {
     const instance = jsPsych;
@@ -111,7 +108,3 @@ export let jsPsych = initJsPsych({
     };
   },
 });
-
-
-
-
