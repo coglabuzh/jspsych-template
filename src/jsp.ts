@@ -2,17 +2,18 @@
 import { initJsPsych } from "jspsych";
 
 // Basic Functions
-import { trackInteractions } from "./basic-fun/attentionCheck";
+import { trackInteractions } from "@coglabuzh/webpsy.js";
 
 // Global variables
 import { varSystem, expInfo } from "./settings";
 
 
 // Initialize JsPsych
-export const jsPsych = initJsPsych({
+export let jsPsych = initJsPsych({
   // check whether participants leave the window or not during the experiment
   on_interaction_data_update: function () {
-    trackInteractions(varSystem, true); // For some weird reason, this function does not work if you write out the name of each variable.
+    const instance = jsPsych
+    trackInteractions(varSystem, true, instance); // For some weird reason, this function does not work if you write out the name of each variable.
   },
 
   // append results to JATOS after each trial if the experiment is running on JATOS.
