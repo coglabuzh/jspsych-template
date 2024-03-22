@@ -4,16 +4,11 @@ import externalHtml from "@jspsych/plugin-external-html";
 // Task Functions
 import { checkConsent, checkNotice } from "../task-fun/checkFun";
 
-// Global variables
-import { expInfo } from "../settings";
-
 
 /* informed consent */
 export const consent_screen = {
   type: externalHtml,
-  url: function(){
-    return `assets/external-html/consent-${expInfo.LANG}.html`
-  },
+  url: "assets/external-html/consent.html",
   cont_btn: "agree",
   check_fn: checkConsent,
 };
@@ -23,9 +18,7 @@ export const consent_screen = {
  */
 export const notice_screen = {
   type: externalHtml,
-  url: function(){
-    return `assets/external-html/notice-${expInfo.LANG}.html`
-  },
+  url: "assets/external-html/notice.html",
   cont_btn: "ready",
   check_fn: checkNotice,
 };

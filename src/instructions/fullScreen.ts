@@ -2,22 +2,16 @@
 import fullscreen from "@jspsych/plugin-fullscreen";
 
 // Global variables
-import { expInfo, varSystem } from "../settings";
-import { TEXT } from "../task-fun/text";
+import { varSystem } from "../settings";
 
 
 // Switch to fullscreen
 export const fullMode_screen = {
   type: fullscreen,
   fullscreen_mode: true,
-  message: function () {
-    return `<div class="main">
-      <p class = 'fb-text'>${TEXT.fullScreen[expInfo.LANG]}</p>
-    </div>`;
-  },
-  button_label: function(){
-    return TEXT.continueButton[expInfo.LANG];
-  },
+  message: `<div class="main">
+      <p class = 'fb-text'>The experiment will switch to full screen</p>
+    </div>`,
   on_finish: function () {
     // start to count that how many times participants has left the browser.
     varSystem.TRACK = true;
