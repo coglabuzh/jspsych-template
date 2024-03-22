@@ -3,6 +3,10 @@ import { initJsPsych } from "jspsych";
 
 // Basic Functions
 import { trackInteractions } from "@coglabuzh/webpsy.js";
+<<<<<<< HEAD
+=======
+
+>>>>>>> a73f0110b0f7f236041f2736a679d81781da501c
 // Global variables
 import { varSystem, expInfo } from "./settings";
 let { COLOR, RUN_JATOS } = expInfo;
@@ -23,10 +27,22 @@ if (RUN_JATOS) {
   jatos.httpRetryWait = 5000; // sets retry waiting time to 5 seconds
 }
 
-export const jsPsych = initJsPsych({
+
+// Initialize JsPsych
+export let jsPsych = initJsPsych({
   // check whether participants leave the window or not during the experiment
   on_interaction_data_update: function () {
-    trackInteractions(varSystem, true, jsPsych);
+    const instance = jsPsych;
+    trackInteractions(varSystem, true, instance); // For some weird reason, this function does not work if you write out the name of each variable.
+  },
+
+  // append results to JATOS after each trial if the experiment is running on JATOS.
+  on_trial_finish: function () {
+    if (expInfo.RUN_JATOS) {
+      var resultJson = jsPsych.data.getLastTrialData().json();
+      //@ts-ignore
+      jatos.appendResultData(resultJson);
+    }
   },
 
   // after the whole experiment, do the following things
@@ -95,3 +111,7 @@ export const jsPsych = initJsPsych({
     };
   },
 });
+
+
+
+
