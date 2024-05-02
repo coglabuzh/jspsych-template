@@ -13,6 +13,7 @@ setCSS();
 export const expInfo = {
   // settings for the experiment
   TITLE: "the_name_of_your_experiment",
+  LANG: "en", // the default language of the experiment
 
   // design of the experiment
   DESIGN:{
