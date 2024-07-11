@@ -16,12 +16,12 @@ export const expInfo = {
   LANG: "en", // the default language of the experiment
 
   // design of the experiment
-  DESIGN:{
+  DESIGN: {
     nTRIALS: 1, // number of experiment trials for each condition
     nBLOCKS: 1, // number of blocks
     CONDITIONS: [5, 6, 7, 8],
   },
-  
+
   // settings for each trial
   TIMING: {
     START: 10 * 1000, // time for the countdown before a new trial starts
@@ -33,10 +33,12 @@ export const expInfo = {
   // you can set them here and use them in the end of the experiment (jsp.ts)
   CODES: {
     SUCCESS: "success", // the code for a successfully completion of the experiment
-    FAIL: "fail", // the code for the failed experiment
+    OFFLINE: "offline", // the code for the offline situation
+    FAILED_ATTENTION: "failedAttention", // the code for the failed experiment
+    FAILED_OTHERS: "failedOthers", // the code for other failed situations (e.g., failed to resize the window)
     // You can specify the codes for different situations here.
   },
-  
+
   /** The key is case-sensitive and position-sensitive.
    * It is recommended to allow both upper and lower case keys.
    * You can use the `convertCase` function to prevent the issue.
@@ -63,5 +65,5 @@ export const varSystem = {
   MAX_BLUR: 3, // the maximum number of times participants can leave the browser
   LOOP: true, // a switch to control whether participants need to read the instruction and practice again
   RUN_TIMER: false, // a switch to control the countdown timer
-  FAILED_ATTENTION_CHECK: false,
+  STATUS: "success", // the status of the experiment
 };

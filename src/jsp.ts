@@ -2,11 +2,12 @@
 import { initJsPsych } from "jspsych";
 
 // Basic Functions
-import { trackInteractions } from "@coglabuzh/webpsy.js";
+import { trackInteractions } from "./task-fun/attentionCheck";
+
 // Global variables
 import { varSystem, expInfo } from "./settings";
-let { RUN_JATOS } = expInfo;
-import { TEXT } from "./task-fun/text";
+let { RUN_JATOS, CODES } = expInfo;
+import { END_INFO } from "./task-fun/text";
 
 // Task functions
 import { setCSS } from "./task-fun/setCSS";
@@ -36,60 +37,66 @@ export const jsPsych = initJsPsych({
     // get the data
     var resultJson = jsPsych.data.get().json();
 
-    // check the status of participants
-    let internet = RUN_JATOS && navigator.onLine ? "online" : "offline";
-    let results = varSystem.FAILED_ATTENTION_CHECK ? "fail" : "success";
-    let finalStatus = `${internet}_${results}`;
+    // set the end screen, end information, and the redirect link
+    let endScreen: string = "";
+    let endInfo: string;
+    let endStatus: boolean;
+    let redirectLink: string;
 
     // return varied completion codes and screen based on the final status
-    switch (finalStatus) {
+    switch (varSystem.STATUS) {
+      // when the participants fail resizing the window
+      case "failed_resize":
+        endScreen = END_INFO.failedResize[expInfo.LANG];
+        endInfo = "FAILED_RESIZE";
+        endStatus = false;
+        redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.FAILED_OTHERS}`;
+        break;
       // when the participants run the experiment online and pass the attention check
-      case "online_success":
-        //@ts-ignore submit results to JATOS
-        jatos
-          .submitResultData(resultJson)
-          //@ts-ignore end the study
-          .then(jatos.endStudyAjax(true, "FINISHED"))
-          .then(() => {
-            // window.location.href = `assets/external-html/completed-${expInfo.LANG}.html`;
-            document.body.innerHTML = TEXT.completedOffline[expInfo.LANG];
-          })
-          .catch((error) => {
-            console.error("Failed to submit the results to JATOS", error);
-          });
+      case "success":
+        endInfo = "FINISHED";
+        endStatus = true;
+        if (RUN_JATOS && navigator.onLine === true) {
+          endScreen = END_INFO.completedOnline[expInfo.LANG];
+          redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.SUCCESS}`;
+        } else {
+          endScreen = END_INFO.completedOffline[expInfo.LANG];
+          redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.OFFLINE}`;
+        }
         break;
-
       // when the participants fail the attention check reagardless of the internet status
-      case "online_fail":
-        //@ts-ignore submit results to JATOS
-        jatos
-          .submitResultData(resultJson)
-          //@ts-ignore end the study
-          .then(jatos.endStudyAjax(false, "FAILED_ATTENTION_CHECK"))
-          .then(() => {
-            // window.location.href = `assets/external-html/failed-${expInfo.LANG}.html`;
-            document.body.innerHTML = TEXT.failedOnline[expInfo.LANG];
-          })
-          .catch((error) => {
-            console.error("Failed to submit the results to JATOS", error);
-          });
+      case "failed_attention_check":
+        endScreen = END_INFO.failed[expInfo.LANG];
+        endInfo = "FAILED_ATTENTION_CHECK";
+        endStatus = false;
+        redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.FAILED_ATTENTION}`;
         break;
+    }
 
-      case "offline_fail":
-        document.body.innerHTML = TEXT.failedOffline[expInfo.LANG];
+    // show the end screen
+    document.body.innerHTML = endScreen;
 
-        break;
-      case "offline_success":
-        // download the data as a json file
+    // upload the data to JATOS and redirect to the Prolific page
+    if (RUN_JATOS && navigator.onLine === true) {
+      //@ts-ignore upload the data to JATOS
+      jatos.submitResultData(resultJson);
+      // redirect to the Prolific page after 10 seconds
+      setTimeout(function () {
+        //@ts-ignore
+        jatos.endStudyAndRedirect(redirectLink, endStatus, endInfo);
+      }, 10000);
+    } else {
+      // if the participants are offline, download the data as a json file
+      if (varSystem.STATUS === "success") {
+        // get the participant ID
         const participant_id = jsPsych.data
           .getLastTrialData()
           .values()[0].participant;
+        // set the file name
         var file_name = expInfo.TITLE + "_" + participant_id + ".json";
+        // download the data as a json file
         jsPsych.data.get().localSave("json", file_name);
-
-        document.body.innerHTML = TEXT.completedOffline[expInfo.LANG];
-
-        break;
+      }
     }
   },
 });
