@@ -21,6 +21,7 @@ import { jsPsych } from "./jsp";
 import { welcome_screen } from "./instructions/welcome";
 import { consent_screen, notice_screen } from "./instructions/consent";
 import { browser_screen } from "./instructions/browserCheck";
+import { fullMode_screen } from "./instructions/fullScreen";
 
 /**
  * This function will be executed by jsPsych Builder and is expected to run the jsPsych experiment
@@ -62,6 +63,7 @@ export async function run({
   timeline.push(consent_screen);
   timeline.push(notice_screen);
   timeline.push(browser_screen);
+  timeline.push(fullMode_screen);
 
   await jsPsych.run(timeline);
 

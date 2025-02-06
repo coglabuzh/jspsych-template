@@ -11,7 +11,7 @@ interface blurObject {
   STATUS: string;
 }
 
-/** Contro the browser interactions
+/** Control the browser interactions
  *
  * This function is used to control the number of blurs and to end the experiment if the user has left the tab too often.
  *

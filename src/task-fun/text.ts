@@ -1,3 +1,4 @@
+import { it } from "node:test";
 import { expInfo } from "../settings";
 let { TIMING, CODES } = expInfo;
 
@@ -157,7 +158,7 @@ export const END_INFO = {
     <p>
         You have successfully completed the experiment! 
         We are now transferring data to the server. 
-        Please copy the following completion code: ${CODES.OFFLINE}. 
+        Please copy the following completion code: ${CODES.SUCCESS}. 
         If the window is not redirected to Prolific after 5 minutes, 
         you can just close it and submit the completion code to Prolific.
     </p>
@@ -166,7 +167,7 @@ export const END_INFO = {
     <h1 class="title">实验结束</h1>
     <p>
         恭喜你顺利完成实验！我们正在将数据上传至服务器。
-        请复制以下完成代码：${CODES.OFFLINE}。
+        请复制以下完成代码：${CODES.SUCCESS}。
         如果窗口在5分钟内未重定向到Prolific，请直接关闭窗口并将完成代码提交至Prolific。
     </p>
     </div>`,
