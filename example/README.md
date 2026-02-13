@@ -6,6 +6,8 @@ This folder contains small, self-contained examples showing how to use template 
 
 - `libUsageExample.ts`
   - Shows how to import and use selected helpers from `src/lib/`.
+- `colorWheelTrialExample.ts`
+  - Clean, color-wheel-only psychophysics trial example (wheel, drag angle, indicator line, selected color).
 
 ## Notes
 
