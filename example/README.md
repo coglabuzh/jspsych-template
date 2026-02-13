@@ -8,6 +8,8 @@ This folder contains small, self-contained examples showing how to use template 
   - Shows how to import and use selected helpers from `src/lib/`.
 - `colorWheelTrialExample.ts`
   - Clean, color-wheel-only psychophysics trial example (wheel, drag angle, indicator line, selected color).
+- `correctStimuliLocation.ts`
+  - Shows how to correct button location when `response_type: "button"` is used, using `on_load`.
 
 ## Notes
 
