@@ -27,7 +27,7 @@ export const config = {
     LANG: "en", // Active language key used across text modules.
     DURATION: 45, // Study duration in minutes (number only).
     CONTACT_PERSON: "YOUR FULL NAME", // Shown in consent page.
-    CONTACT_EMAIL: "YOUR UNIVERSITY EMAIL", // Shown in consent page.
+    CONTACT_EMAIL: "YOUR CONTACT EMAIL", // Shown in consent page.
     INSTITUTION: "YOUR INSTITUTION", // Shown in consent page.
   },
 
