@@ -4,25 +4,27 @@ import Swal from "sweetalert2";
 // JsPsych type
 import { JsPsych } from "jspsych";
 
-interface blurObject {
+interface BlurState {
   TRACK: boolean;
   MAX_BLUR: number;
   nBLUR: number;
   STATUS: string;
 }
 
-/** Control the browser interactions
+/**
+ * Monitors blur interactions and enforces attention-check termination rules.
  *
- * This function is used to control the number of blurs and to end the experiment if the user has left the tab too often.
+ * Behavior:
+ * - increments blur count on each `"blur"` interaction event
+ * - shows warning dialogs before the maximum is reached
+ * - aborts experiment once the blur limit is exceeded
  *
- * If you want to use this function, you have to defined a global variable with the name blur.nBlur and varSystem.MAX_BLUR.
- *
- * @param {blurObject} blur An object that has to include variables of `START_COUNT`, `MAX_BLUR` and `nBlur`.
- * @param alert A boolean value.
- * @param jsPsych The jsPsych object.
+ * @param blur Mutable runtime blur-tracking state
+ * @param alert Whether to show warning/error dialogs
+ * @param jsPsych Active jsPsych instance
  */
 export function trackInteractions(
-  blur: blurObject,
+  blur: BlurState,
   alert = true,
   jsPsych: JsPsych
 ) {
@@ -61,7 +63,7 @@ export function trackInteractions(
                 `,
           showConfirmButton: true,
         }).then(() => {
-          jsPsych.endExperiment();
+          jsPsych.abortExperiment();
         });
       }
     }

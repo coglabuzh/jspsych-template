@@ -2,15 +2,15 @@
 import { initJsPsych } from "jspsych";
 
 // Basic Functions
-import { trackInteractions } from "./task-fun/attentionCheck";
+import { trackInteractions } from "@lib/general/attentionCheck";
 
 // Global variables
-import { varSystem, expInfo } from "./settings";
-let { RUN_JATOS, CODES } = expInfo;
-import { END_INFO } from "./task-fun/text";
+import { RUN_JATOS, RUN_PROLIFIC, CODES, CONSENT } from "@settings";
+import { runtimeState } from "@runtimeState";
+import { END_INFO, translateText } from "@text";
 
 // Task functions
-import { setCSS } from "./task-fun/setCSS";
+import { setCSS } from "@lib/general/setCSS";
 
 // Do something in the beginning of the experiment
 setCSS(); // set the CSS style of the experiment
@@ -26,28 +26,28 @@ if (RUN_JATOS) {
 export const jsPsych = initJsPsych({
   // check whether participants leave the window or not during the experiment
   on_interaction_data_update: function () {
-    trackInteractions(varSystem, true, jsPsych);
+    trackInteractions(runtimeState, true, jsPsych);
   },
 
   // after the whole experiment, do the following things
-  on_finish: function (data) {
+  on_finish: function (data:any) {
     // stop tracking interactions
-    varSystem.TRACK = false;
+    runtimeState.TRACK = false;
 
     // get the data
     var resultJson = jsPsych.data.get().json();
 
     // set the end screen, end information, and the redirect link
-    let endScreen: string = "";
+    let endScreen: string = "@settings";
     let endInfo: string;
     let endStatus: boolean;
-    let redirectLink: string;
+    let redirectLink = "@settings";
 
     // return varied completion codes and screen based on the final status
-    switch (varSystem.STATUS) {
+    switch (runtimeState.STATUS) {
       // when the participants fail resizing the window
       case "failed_resize":
-        endScreen = END_INFO.failedResize[expInfo.LANG];
+        endScreen = translateText(END_INFO.failedResize, CONSENT.LANG);
         endInfo = "FAILED_RESIZE";
         endStatus = false;
         redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.FAILED_OTHERS}`;
@@ -57,16 +57,16 @@ export const jsPsych = initJsPsych({
         endInfo = "FINISHED";
         endStatus = true;
         if (RUN_JATOS && navigator.onLine === true) {
-          endScreen = END_INFO.completedOnline[expInfo.LANG];
+          endScreen = translateText(END_INFO.completedOnline, CONSENT.LANG);
           redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.SUCCESS}`;
         } else {
-          endScreen = END_INFO.completedOffline[expInfo.LANG];
+          endScreen = translateText(END_INFO.completedOffline, CONSENT.LANG);
           redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.OFFLINE}`;
         }
         break;
       // when the participants fail the attention check reagardless of the internet status
       case "failed_attention_check":
-        endScreen = END_INFO.failed[expInfo.LANG];
+        endScreen = translateText(END_INFO.failed, CONSENT.LANG);
         endInfo = "FAILED_ATTENTION_CHECK";
         endStatus = false;
         redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.FAILED_ATTENTION}`;
@@ -82,18 +82,23 @@ export const jsPsych = initJsPsych({
       jatos.submitResultData(resultJson);
       // redirect to the Prolific page after 10 seconds
       setTimeout(function () {
-        //@ts-ignore
-        jatos.endStudyAndRedirect(redirectLink, endStatus, endInfo);
+        if (RUN_PROLIFIC) {
+          //@ts-ignore
+          jatos.endStudyAndRedirect(redirectLink, endStatus, endInfo);
+        } else {
+          //@ts-ignore
+          jatos.endStudy(endStatus, endInfo);
+        }
       }, 10000);
     } else {
       // if the participants are offline, download the data as a json file
-      if (varSystem.STATUS === "success") {
+      if (runtimeState.STATUS === "success") {
         // get the participant ID
         const participant_id = jsPsych.data
           .getLastTrialData()
           .values()[0].participant;
         // set the file name
-        var file_name = expInfo.TITLE + "_" + participant_id + ".json";
+        var file_name = CONSENT.TITLE + "_" + participant_id + ".json";
         // download the data as a json file
         jsPsych.data.get().localSave("json", file_name);
       }

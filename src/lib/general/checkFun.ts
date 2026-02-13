@@ -1,13 +1,22 @@
 // Global variables
-import { expInfo } from "../settings";
-import { jsPsych } from "../jsp";
+import { config } from "@settings";
+import { jsPsych } from "@jsp";
+const { RUN_JATOS, RUN_PROLIFIC } = config;
 
 /**
- * Check if the participant agree with all the items in the consent and input their participant ID.
- * @returns true or false; if false, the participant cannot continue
+ * Validates consent form input and stores participant metadata in jsPsych data.
+ *
+ * Required checks:
+ * - participant ID field is non-empty
+ * - all consent checkboxes are ticked
+ *
+ * Side effects:
+ * - adds `participant`, `resultID`, and `comResultID` via `jsPsych.data.addProperties(...)`
+ *
+ * @returns `true` when the participant can continue, otherwise `false`
  */
 export const checkConsent = function () {
-  if (expInfo.RUN_JATOS) {
+  if (RUN_JATOS) {
     //@ts-ignore
     var resultID = jatos.studyResultId;
     //@ts-ignore
@@ -17,11 +26,12 @@ export const checkConsent = function () {
     var comResultID = 9999;
   }
 
-  // @ts-ignore get the value of the prolific ID
-  var prolificID = document.getElementById("prolific_id").value;
+  // @ts-ignore get the value of the participant ID field
+  const participantID = document.getElementById("participant_id").value;
+  const idLabel = RUN_PROLIFIC ? "Prolific-ID" : "Participant-ID";
 
-  if (prolificID === "") {
-    alert("Please input your prolific ID");
+  if (participantID === "") {
+    alert(`Please input your ${idLabel}`);
     return false;
   } else if (
     //@ts-ignore
@@ -34,7 +44,7 @@ export const checkConsent = function () {
     document.getElementById("checkbox4").checked
   ) {
     jsPsych.data.addProperties({
-      participant: prolificID,
+      participant: participantID,
       resultID: resultID,
       comResultID: comResultID,
     });
@@ -46,8 +56,8 @@ export const checkConsent = function () {
 };
 
 /**
- * Check if the participant agree with all the items in the notice.
- * @returns true or false; if false, the participant cannot continue
+ * Validates the notice agreement checkbox.
+ * @returns `true` when checked, otherwise `false`
  */
 export const checkNotice = function () {
   if (

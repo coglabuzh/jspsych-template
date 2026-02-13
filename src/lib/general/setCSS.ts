@@ -5,6 +5,12 @@ var winW = Math.min(window.innerWidth, window.innerHeight * 1.5);
 var Width = Math.min(winW * 0.95, 1200);
 var fontSize = Width * 0.02;
 
+/**
+ * Applies global CSS rules for the experiment UI.
+ *
+ * This function configures layout- and typography-related classes used across
+ * instruction, consent, and task screens.
+ */
 export const setCSS = function () {
   jss.set(".main", {
     width: `${Width}px`,
@@ -89,6 +95,16 @@ export const setCSS = function () {
   });
 };
 
+/**
+ * Creates a matrix of absolute-positioned button HTML snippets and injects
+ * corresponding CSS classes via JSS.
+ *
+ * @param nrow Number of rows in the button matrix
+ * @param ncol Number of columns in the button matrix
+ * @param mWidth Horizontal span (percentage units) occupied by the matrix
+ * @param mHeight Vertical span (percentage units) occupied by the matrix
+ * @returns Array of button HTML strings (one per position)
+ */
 export function createButtonMatrix(
   nrow: number,
   ncol: number,

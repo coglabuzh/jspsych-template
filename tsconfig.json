@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@lib": ["src/lib/index.ts"],
+      "@lib/*": ["src/lib/*"],
+      "@text": ["src/text/index.ts"],
+      "@text/*": ["src/text/*"],
+      "@trials": ["src/trials/index.ts"],
+      "@trials/*": ["src/trials/*"],
+      "@instructions/*": ["src/instructions/*"],
+      "@settings": ["src/settings.ts"],
+      "@runtimeState": ["src/runtimeState.ts"],
+      "@jsp": ["src/jsp.ts"],
+      "@styles/*": ["styles/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "example/**/*.ts"]
+}
