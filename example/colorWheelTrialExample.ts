@@ -1,14 +1,13 @@
 import { createColorWheel, getLabCol } from "@lib/color";
 import { getAngleFromPoint } from "@lib/general";
+import jsPsychPsychophysics from "@kurokida/jspsych-psychophysics";
+import { initJsPsych } from "jspsych";
 
-type TrialLike = {
-  stim_array: Array<Record<string, unknown>>;
-  data: Record<string, unknown>;
-};
-
-type JsPsychLike = {
-  getCurrentTrial: () => TrialLike | null;
-};
+const jsPsych = initJsPsych({
+  on_finish: function () {
+    jsPsych.data.displayData();
+  }
+})
 
 /**
  * Color-wheel-only trial example:
@@ -16,10 +15,7 @@ type JsPsychLike = {
  * - Lets the user drag to pick an angle/color
  * - Updates a line indicator
  */
-export function createColorWheelTrialExample(
-  Psychophysics: unknown,
-  jsPsych: JsPsychLike
-) {
+export function createColorWheelTrialExample() {
   const canvasWidth = 800;
   const canvasHeight = 800;
   const backgroundColor = "#ffffff";
@@ -50,7 +46,7 @@ export function createColorWheelTrialExample(
   let mouseDown = false;
 
   return {
-    type: Psychophysics,
+    type: jsPsychPsychophysics,
     canvas_width: canvasWidth,
     canvas_height: canvasHeight,
     background_color: backgroundColor,
