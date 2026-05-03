@@ -15,7 +15,7 @@
     "@jspsych/plugin-instructions": "^2.1.0",
     "@jspsych/plugin-preload": "^2.1.0",
     "@jspsych/plugin-survey-html-form": "^2.1.0",
-    "@kurokida/jspsych-psychophysics": "^3.6.0",
+    "@kurokida/jspsych-psychophysics": "github:kurokida/jspsych-psychophysics#v4.1.2",
     "jspsych": "^8.2.3",
     "jss-browserify": "^0.6.0",
     "ml-matrix": "^6.10.4",
