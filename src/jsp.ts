@@ -50,7 +50,7 @@ export const jsPsych = initJsPsych({
         endScreen = translateText(END_INFO.failedResize, CONSENT.LANG);
         endInfo = "FAILED_RESIZE";
         endStatus = false;
-        redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.FAILED_OTHERS}`;
+        redirectLink = `https://app.prolific.com/submissions/complete?cc=${CODES.FAILED_OTHERS}`;
         break;
       // when the participants run the experiment online and pass the attention check
       case "success":
@@ -58,10 +58,10 @@ export const jsPsych = initJsPsych({
         endStatus = true;
         if (RUN_JATOS && navigator.onLine === true) {
           endScreen = translateText(END_INFO.completedOnline, CONSENT.LANG);
-          redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.SUCCESS}`;
+          redirectLink = `https://app.prolific.com/submissions/complete?cc=${CODES.SUCCESS}`;
         } else {
           endScreen = translateText(END_INFO.completedOffline, CONSENT.LANG);
-          redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.OFFLINE}`;
+          redirectLink = `https://app.prolific.com/submissions/complete?cc=${CODES.OFFLINE}`;
         }
         break;
       // when the participants fail the attention check reagardless of the internet status
@@ -69,7 +69,7 @@ export const jsPsych = initJsPsych({
         endScreen = translateText(END_INFO.failed, CONSENT.LANG);
         endInfo = "FAILED_ATTENTION_CHECK";
         endStatus = false;
-        redirectLink = `https://app.prolific.co/submissions/complete?cc=${CODES.FAILED_ATTENTION}`;
+        redirectLink = `https://app.prolific.com/submissions/complete?cc=${CODES.FAILED_ATTENTION}`;
         break;
     }
 
