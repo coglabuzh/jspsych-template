@@ -6,5 +6,7 @@ Examples:
 - randomization helpers
 - array/math helpers
 - geometry helpers (distance/angle from points)
-- validation helpers
 - formatting/parsing helpers
+- generic DOM timing or layout helpers
+
+Form-specific validation belongs in `src/lib/forms/`.

@@ -15,7 +15,7 @@ import "@styles/main.scss";
 import preload from "@jspsych/plugin-preload";
 
 // Global variables
-import { jsPsych } from "@jsp";
+import { jsPsych } from "@runtime";
 
 // screens
 import { welcome_screen } from "@instructions/welcome";
@@ -56,13 +56,11 @@ export async function run({
 
   /************************************** Instruction **************************************/
 
-
   /************************************** Practice **************************************/
 
   /************************************** Experiment **************************************/
 
   /************************************** Procedure **************************************/
-
 
   // Push all the screen slides into timeline
   // When you want to test the experiment, you can easily comment out the screens you don't want

@@ -3,7 +3,7 @@ import fullscreen from "@jspsych/plugin-fullscreen";
 
 // Global variables
 import { config } from "@settings";
-import { runtimeState } from "@runtimeState";
+import { runtimeState } from "@runtime";
 import { SCREEN_INFO, BUTTON_INFO, translateText } from "@text";
 const { CONSENT } = config;
 
@@ -13,7 +13,10 @@ export const fullMode_screen = {
   fullscreen_mode: true,
   message: function () {
     return `<div class="main">
-      <p class = 'fb-text'>${translateText(SCREEN_INFO.fullScreen, CONSENT.LANG)}</p>
+      <p class = 'fb-text'>${translateText(
+        SCREEN_INFO.fullScreen,
+        CONSENT.LANG,
+      )}</p>
     </div>`;
   },
   button_label: function () {

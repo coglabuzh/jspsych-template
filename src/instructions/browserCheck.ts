@@ -1,6 +1,6 @@
 // jsPsych official plugin
 import browserCheck from "@jspsych/plugin-browser-check";
-import { runtimeState } from "@runtimeState";
+import { runtimeState } from "@runtime";
 
 // checking the size of window
 export const browser_screen = {

@@ -10,8 +10,7 @@ export function webpack(config) {
     "@trials": path.resolve("src/trials"),
     "@instructions": path.resolve("src/instructions"),
     "@settings": path.resolve("src/settings.ts"),
-    "@runtimeState": path.resolve("src/runtimeState.ts"),
-    "@jsp": path.resolve("src/jsp.ts"),
+    "@runtime": path.resolve("src/runtime"),
     "@styles": path.resolve("styles"),
   };
 

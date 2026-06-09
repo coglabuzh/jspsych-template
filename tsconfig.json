@@ -11,8 +11,8 @@
       "@trials/*": ["src/trials/*"],
       "@instructions/*": ["src/instructions/*"],
       "@settings": ["src/settings.ts"],
-      "@runtimeState": ["src/runtimeState.ts"],
-      "@jsp": ["src/jsp.ts"],
+      "@runtime": ["src/runtime/index.ts"],
+      "@runtime/*": ["src/runtime/*"],
       "@styles/*": ["styles/*"]
     }
   },

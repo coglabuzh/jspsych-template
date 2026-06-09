@@ -2,12 +2,8 @@
  * Central experiment configuration.
  *
  * Template users should primarily edit values in `config`.
- * Other modules import either `config` or the named exports at the bottom.
+ * Other modules import `config` and read values from this object.
  */
-import { setCSS } from "@lib/general/setCSS";
-
-// Apply global experiment styles at startup.
-setCSS();
 
 /**
  * Main configuration object.
@@ -18,7 +14,7 @@ setCSS();
  * - TIMING: durations used by instruction/trial timers
  * - CODES: completion/error codes (typically for Prolific/JATOS workflows)
  * - KEYS: key mappings used in task logic
- * - RUN_* flags: environment/platform behavior toggles
+ * - PLATFORM: where and how the task runs
  */
 export const config = {
   // Values injected into `assets/external-html/consent-*.html` placeholders.
@@ -64,14 +60,10 @@ export const config = {
     START_TRIAL: [" "],
   },
 
-  // Platform/environment toggles.
-  RUN_JATOS: false, // Run with JATOS integration and upload behavior.
-  RUN_PROLIFIC: false, // When false, do not redirect to Prolific at the end.
+  // Platform/environment behavior.
+  PLATFORM: {
+    JATOS: "off", // Use "off" locally, "finish" for the last component, or "continue" to open the next component.
+    IF_FAILED: "finish", // Use "finish" to stop failed participants, or "continue" to open the next component.
+    PROLIFIC: false, // Redirect to Prolific when the JATOS study finishes.
+  },
 };
-
-// Convenience named exports for cleaner imports in other modules.
-export const { CONSENT, DESIGN, TIMING, CODES, KEYS, RUN_JATOS, RUN_PROLIFIC } =
-  config;
-
-// Frequently used design shortcuts.
-export const { nTRIALS, nBLOCKS, CONDITIONS } = DESIGN;

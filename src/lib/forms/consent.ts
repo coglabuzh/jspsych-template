@@ -1,7 +1,12 @@
-// Global variables
+/**
+ * Consent and notice form validation.
+ *
+ * These helpers are specific to the external consent/notice HTML files used by
+ * this template. They read form fields from the page and store participant
+ * metadata in the shared jsPsych dataset.
+ */
 import { config } from "@settings";
-import { jsPsych } from "@jsp";
-const { RUN_JATOS, RUN_PROLIFIC } = config;
+import { jsPsych } from "@runtime";
 
 /**
  * Validates consent form input and stores participant metadata in jsPsych data.
@@ -11,12 +16,13 @@ const { RUN_JATOS, RUN_PROLIFIC } = config;
  * - all consent checkboxes are ticked
  *
  * Side effects:
+ * - reads consent form elements from the current document
  * - adds `participant`, `resultID`, and `comResultID` via `jsPsych.data.addProperties(...)`
  *
- * @returns `true` when the participant can continue, otherwise `false`
+ * @returns `true` when the participant can continue, otherwise `false`.
  */
-export const checkConsent = function () {
-  if (RUN_JATOS) {
+export const validateConsentForm = function () {
+  if (config.PLATFORM.JATOS !== "off") {
     //@ts-ignore
     var resultID = jatos.studyResultId;
     //@ts-ignore
@@ -28,18 +34,18 @@ export const checkConsent = function () {
 
   // @ts-ignore get the value of the participant ID field
   const participantID = document.getElementById("participant_id").value;
-  const idLabel = RUN_PROLIFIC ? "Prolific-ID" : "Participant-ID";
+  const idLabel = config.PLATFORM.PROLIFIC ? "Prolific-ID" : "Participant-ID";
 
   if (participantID === "") {
     alert(`Please input your ${idLabel}`);
     return false;
   } else if (
     //@ts-ignore
-    document.getElementById("checkbox1").checked &
+    document.getElementById("checkbox1").checked &&
     //@ts-ignore
-    document.getElementById("checkbox2").checked &
+    document.getElementById("checkbox2").checked &&
     //@ts-ignore
-    document.getElementById("checkbox3").checked &
+    document.getElementById("checkbox3").checked &&
     //@ts-ignore
     document.getElementById("checkbox4").checked
   ) {
@@ -57,9 +63,14 @@ export const checkConsent = function () {
 
 /**
  * Validates the notice agreement checkbox.
- * @returns `true` when checked, otherwise `false`
+ *
+ * Side effects:
+ * - reads the notice checkbox from the current document
+ * - shows an alert when the required box is unchecked
+ *
+ * @returns `true` when checked, otherwise `false`.
  */
-export const checkNotice = function () {
+export const validateNoticeForm = function () {
   if (
     //@ts-ignore
     document.getElementById("checkbox5").checked
